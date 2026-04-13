@@ -171,6 +171,145 @@ body {
   margin-top: 2px;
 }
 
+/* ---- Sidebar history list (会话列表) ---------------------- */
+
+.sidebar-history {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.sidebar-history .sidebar-section-title {
+  flex-shrink: 0;
+}
+
+.history-empty {
+  padding: 12px;
+  font-size: 12px;
+  color: var(--text-3);
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  /* 紧凑滚动条样式与正文一致 */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 6px;
+}
+.history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border);
+}
+
+.history-item.is-active {
+  background: rgba(124, 92, 255, 0.16);
+  border-color: rgba(124, 92, 255, 0.45);
+  box-shadow: 0 4px 14px rgba(124, 92, 255, 0.18);
+}
+
+.history-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(124, 92, 255, 0.14);
+  color: var(--brand-2);
+}
+
+.history-item.is-active .history-icon {
+  background: rgba(124, 92, 255, 0.3);
+  color: #fff;
+}
+
+.history-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-title {
+  font-size: 13px;
+  color: var(--text-1);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-meta {
+  font-size: 10.5px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+
+.history-delete {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--text-3);
+  border-radius: 7px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.history-item:hover .history-delete,
+.history-item.is-active .history-delete {
+  opacity: 1;
+}
+
+.history-delete:hover {
+  background: rgba(255, 90, 107, 0.16);
+  color: var(--danger);
+}
+
+.sidebar-features {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .sidebar-footer {
   margin-top: auto;
   padding-top: 12px;

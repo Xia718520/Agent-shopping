@@ -14,6 +14,12 @@
  *   data: [DONE]\n\n
  */
 
+/** 发给后端的一条历史消息（精简后的 ChatMessage）。 */
+export interface HistoryItem {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 export interface StreamHandlers {
   /** 每收到一块 content 时触发,text 是累计的 delta */
   onDelta: (delta: string) => void;
@@ -23,10 +29,12 @@ export interface StreamHandlers {
   onError: (err: string) => void;
   /** 外部终止信号 */
   signal?: AbortSignal;
+  /** 多轮对话历史(不含本轮 query),按时间顺序排列 */
+  history?: HistoryItem[];
 }
 
 export async function streamChat(query: string, handlers: StreamHandlers): Promise<void> {
-  const { onDelta, onDone, onError, signal } = handlers;
+  const { onDelta, onDone, onError, signal, history = [] } = handlers;
 
   try {
     const res = await fetch('/api/chat/stream', {
@@ -35,7 +43,7 @@ export async function streamChat(query: string, handlers: StreamHandlers): Promi
         'Content-Type': 'application/json',
         Accept: 'text/event-stream',
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, history }),
       signal,
     });
 

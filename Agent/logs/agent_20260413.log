@@ -1,0 +1,17 @@
+2026-04-13 15:47:02,154 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有1条消息。
+2026-04-13 15:47:02,154 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | 我叫夏正印
+2026-04-13 15:47:14,318 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有3条消息。
+2026-04-13 15:47:14,319 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | 今天武汉天气怎么样
+2026-04-13 15:47:18,493 - agent - INFO - middleware.py:19 - [tool monitor]执行工具：get_weather
+2026-04-13 15:47:18,493 - agent - INFO - middleware.py:20 - [tool monitor]传入参数：{'city': '武汉'}
+2026-04-13 15:47:18,494 - agent - INFO - middleware.py:24 - [tool monitor]工具get_weather调用成功
+2026-04-13 15:47:18,495 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有5条消息。
+2026-04-13 15:47:18,495 - agent - DEBUG - middleware.py:42 - [log_before_model]ToolMessage | 城市武汉天气为晴天，气温26摄氏度，空气湿度50%，南风1级，AQI21，最近6小时降雨概率极低
+2026-04-13 15:48:08,277 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有5条消息。
+2026-04-13 15:48:08,277 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | 我叫什么
+2026-04-13 15:48:22,220 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有1条消息。
+2026-04-13 15:48:22,220 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | 我叫什么
+2026-04-13 16:00:03,573 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有1条消息。
+2026-04-13 16:00:03,573 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | hello
+2026-04-13 16:00:13,084 - agent - INFO - middleware.py:40 - [log_before_model]即将调用模型，带有1条消息。
+2026-04-13 16:00:13,084 - agent - DEBUG - middleware.py:42 - [log_before_model]HumanMessage | 你好

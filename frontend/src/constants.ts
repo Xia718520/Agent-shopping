@@ -30,4 +30,14 @@ export const QUICK_PROMPTS: QuickPrompt[] = [
   },
 ];
 
-export const STORAGE_KEY = 'sweeper-ai:chat-history-v1';
+/** 旧版本(单一对话)使用的 key,只在迁移时读取一次,迁移成功后会被清除。 */
+export const LEGACY_STORAGE_KEY = 'sweeper-ai:chat-history-v1';
+
+/** 新版本:存放 Conversation[] 的 key。 */
+export const STORAGE_KEY_CONVERSATIONS = 'sweeper-ai:conversations-v1';
+
+/** 新版本:存放当前激活的 conversation id,允许为 null(欢迎屏)。 */
+export const STORAGE_KEY_ACTIVE = 'sweeper-ai:active-conversation-v1';
+
+/** 标题最多保留多少个字符。 */
+export const CONVERSATION_TITLE_MAX = 24;

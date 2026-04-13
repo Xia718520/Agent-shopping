@@ -1,11 +1,12 @@
 import json
 import asyncio
 from contextlib import asynccontextmanager
+from typing import List, Literal
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from agent.react_agent import ReactAgent
 
@@ -48,8 +49,17 @@ app.add_middleware(
 
 
 # ---------- 请求/响应模型 ----------
+class HistoryMessage(BaseModel):
+    """历史对话中的单条消息（仅 user / assistant，不含 system）。"""
+    role: Literal["user", "assistant"]
+    content: str
+
+
 class ChatRequest(BaseModel):
     query: str
+    # 由前端传入的多轮对话历史（不含本轮 query）。
+    # 后端会在 ReactAgent 内做窗口截断，避免超 token。
+    history: List[HistoryMessage] = Field(default_factory=list)
 
 
 class ChatResponse(BaseModel):
@@ -77,11 +87,12 @@ async def chat(req: ChatRequest):
         raise HTTPException(status_code=400, detail="query 不能为空")
 
     agent: ReactAgent = agent_holder["agent"]
+    history = [m.model_dump() for m in req.history]
 
     # ReactAgent.execute_stream 是同步生成器，放到线程池执行以避免阻塞事件循环
     def _collect() -> str:
         chunks = []
-        for chunk in agent.execute_stream(req.query):
+        for chunk in agent.execute_stream(req.query, history=history):
             chunks.append(chunk)
         return chunks[-1] if chunks else ""
 
@@ -113,11 +124,12 @@ async def chat_stream(req: ChatRequest):
         raise HTTPException(status_code=400, detail="query 不能为空")
 
     agent: ReactAgent = agent_holder["agent"]
+    history = [m.model_dump() for m in req.history]
 
     async def event_generator():
         # 把同步生成器放到独立线程中，逐块转成 SSE 事件
         loop = asyncio.get_running_loop()
-        sync_gen = agent.execute_stream(req.query)
+        sync_gen = agent.execute_stream(req.query, history=history)
 
         sentinel = object()
 
