@@ -3,7 +3,9 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 安装必要的系统依赖
-RUN apt-get update && apt-get install -y \
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y \
     build-essential \
     curl \
     software-properties-common \
