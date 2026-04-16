@@ -1,0 +1,27 @@
+# Environment variables
+.env
+
+# Docker data and logs (mounted volumes)
+Agent/chroma_db/
+Agent/logs/
+Agent/data/external/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Node.js
+node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

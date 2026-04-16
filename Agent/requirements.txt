@@ -1,0 +1,15 @@
+langchain
+langchain-chroma
+langchain-core
+langchain-text-splitters
+langchain-community
+chromadb
+streamlit
+fastapi
+uvicorn
+pydantic
+PyYAML
+pandas
+pypdf
+dashscope
+python-dotenv
