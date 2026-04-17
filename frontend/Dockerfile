@@ -3,9 +3,10 @@ FROM node:20-slim AS build
 
 WORKDIR /app
 
-# 复制依赖文件并安装
+# 配置 npm 镜像源并安装依赖
 COPY package*.json ./
-RUN npm install
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install
 
 # 复制源代码并构建
 COPY . .
