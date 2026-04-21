@@ -10,7 +10,7 @@ services:
       - "8000:8000"
       - "8501:8501"
     env_file:
-      - .env.example
+      - .env
     environment:
       - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
     volumes:
