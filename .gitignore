@@ -1,5 +1,5 @@
 # Environment variables
-.env
+
 
 # Docker data and logs (mounted volumes)
 Agent/chroma_db/
