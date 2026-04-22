@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10-slim-bookworm
 
 WORKDIR /app
 
@@ -11,11 +11,13 @@ RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security/ bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
     # 强制 apt 使用 IPv4，解决国内 IPv6 线路不通导致的卡顿
     echo 'Acquire::ForceIPv4 "true";' > /etc/apt/apt.conf.d/99force-ipv4 && \
+    # python:slim 新版常带 /etc/apt/sources.list.d/debian.sources（可能指向其它 suite，如 trixie），会导致混源
+    rm -f /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/*.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
+    ca-certificates \
     build-essential \
     curl \
-    software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制依赖文件并安装 (使用清华大学 pip 镜像源)
